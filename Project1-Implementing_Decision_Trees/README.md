@@ -24,6 +24,7 @@
 
 ## TODO
 - .yaml-file for environment set up
+- .py file for simple data cleaning (categorical, discrete values, only)
 
 ### DATA
 This model assumes that the user has cleaned the data into categorical 
