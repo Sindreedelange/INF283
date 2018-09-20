@@ -12,28 +12,59 @@ class ImpurityMeasure(object):
 
     
     def randomness_reduction(self, entropy_src, entropy_branch):
-        """ Calculates the reduction in randomness, aka Information Gain.
-        entropy_src = entropy of the entire system (target variable),
-        entropy_branch = entropy for one branch
-        Returns the Information Gain - restricted to 3 decimals."""
+        """ Randomness Reduction
+        
+        Calculates the reduction in randomness, aka Information Gain.
+        
+        Args:
+            entropy_src: float. entropy of the entire system (target variable)
+            entropy_branch: float. entropy for a single branch
+        Returns:
+            Information Gain: float - restricted to 3 decimals.
+        """
         return (round(entropy_src - entropy_branch, 3))
 
     def calc_entropy(self, p):
-        """Calculate the entropy for a given fraction"""
+        """ Calculate Entropy
+        
+        Calculate the entropy for a given fraction
+        
+        Args:
+            p: fraction (float)
+        Returns:
+            float
+        """
         if p!=0:
             return -p * np.log2(p)
         else:
             return 0
     
     def calc_gini(self, p):
-        """" Calculate the gini index for a given fraction"""
+        """" Calculate Gini Inidex
+        
+        Calculate the Gini Index for a given fraction
+        
+        Args:
+            p: fraction (float)
+        Returns:
+            float      
+        """
         if p!=0:
             return p * (1-p)
         else:
             return 0
 
     def calc_entropy_system(self, target_variable):
-        """Calculates the entropy of the (entire) system, i.e. target variable"""
+        """ Calculate the entropy for an entire system
+        
+        Calculates the entropy of the (entire) system, i.e. target variable
+        
+        Args:
+            target_variable: pandas series
+        
+        Returns:
+            purity: float
+        """
         tot_len = len(target_variable)
         unique, counts = np.unique(target_variable, return_counts=True)
         dic = dict(zip(unique, counts))
@@ -46,21 +77,31 @@ class ImpurityMeasure(object):
         return purity
 
     def calc_entropy_all_branches(self, feature_entr_dict, entropy_src):
-        """Calculates the entropy among all the branches
-        Expects a dictionary on the format 
-            {'column feature': 
-                {unique value: [
-                    number of this value occured in the set
-                    number of values in the set
-                    entropy when this value occured in the set
-                ], ... }}"""
+        """ Calculate the entropy for multiple columns/features
+        
+        Calculates the entropy for all branches in a python dictionary
+
+        Args:
+            feature_entr_dict: Dictionary, on the format 
+                    {'column feature': 
+                        {unique value: [
+                            number of this value occured in the set
+                            number of values in the set
+                            entropy when this value occured in the set
+                        ], ... }}
+            entropy_src: float.  
+        
+        Returns:
+            Dictionary. Keys = column names, values = their entropy
+        """
         column_entropy_dict_full = {}
         for column_feature in feature_entr_dict:
             entropy_all = 0
             # Take each value from each 'unique value', for each 'column feature' from the inputed dictionary
             # and calculates the entropy for each 'unique value', e.g. sunny, rainy, etc. 
             for unique_val in feature_entr_dict[column_feature]:
-                # NOTE: As mentioned in PyDoc - assumes this format
+                # NOTE: As mentioned in Docstring - assumes this format
+                # TODO: Should probably throw an exception if fails, but up to the user to read the docstrings
                 num_val = feature_entr_dict[column_feature][unique_val][0]
                 num_tot = feature_entr_dict[column_feature][unique_val][1]
                 num_val_entropy = feature_entr_dict[column_feature][unique_val][2]
@@ -74,10 +115,22 @@ class ImpurityMeasure(object):
         return information_gain_dict
     
     def calc_entropy_feature(self, X_y_zip, tot_num_occurences):
-        """ Calculates the necessary numbers, to calculate the entropy - store it in a dictionary.
-        X_y_zip = a dictionary where each unique value, in each column (from X), is mapped to their respective
-        target variable value. 
-        tot_num_occurences = number of target points (length of the columns)"""
+        """ Calculate Entropy Feature 
+        
+        Calculates the necessary numbers, to calculate the entropy - store it in a dictionary.
+        
+        Args:
+            X_y_zip: Dictionary. Key = column names, values = tuples: (column name value, target variable value)
+            tot_num_occurences: int. Number of data points (length of columns)
+
+        Returns:
+            Dictionary. 
+                Key = column names, 
+                value = dictionary: 
+                    Key = Unique value in the outer dictionary column
+                    value = [total number of days, total number of occurences, total entropy for unique value]
+
+        """
         # Dict to store the number necessary to calculate the entropy
         columns_entropy = {}
         for feature in X_y_zip:
@@ -106,8 +159,17 @@ class ImpurityMeasure(object):
     
     
     def calc_entropy_dataset(self, X, y):
-        """Calculates the entropy of an entire dataset, represented by 
-        X and y, training- and target variables, respectively"""
+        """ Calculate Entropy Dataset
+        
+        Calculates the entropy of an entire dataset
+        
+        Args:
+            X: pandas dataframe
+            y: pandas series
+
+        Returns:
+             Dictionary. Keys = column names, values = their entropy
+        """
         # Number of datapoints in the set
         tot_num_occurences = len(y)
         # Calculate the impurity of the target variable
@@ -116,7 +178,7 @@ class ImpurityMeasure(object):
         data = pd.concat([X, y], axis=1)
         X_y_zip = {}
         for columns in X:
-            # Map each value in each column in X to their respective "outcome"/target variable (y)
+            # Map each value in each column, in X, to their respective "outcome"/target variable (y)
             X_y_zip[columns] = data[[columns, y.name]].apply(tuple, axis=1)
         # Calculate the entropy for each feature - using the just made dictionary
         each_feature_w_entropy = self.calc_entropy_feature(X_y_zip, tot_num_occurences)
@@ -124,7 +186,17 @@ class ImpurityMeasure(object):
         return self.calc_entropy_all_branches(each_feature_w_entropy, entropy_system)
     
     def getLargestInformationGain(self, X, y):
-        """Gets the largest IG for any given dataset (that is Pandas DataFrame)"""
+        """  Get Largest Information Gain
+        
+        Gets the largest IG for any given dataset
+        
+        Args:
+            X: pandas dataframe
+            y: pandas series
+        
+        Returns:
+            String. Name of column that gives the best/largest information gain
+        """
         ig_dict = self.calc_entropy_dataset(X, y)
         return (max(ig_dict, key=ig_dict.get))
 
