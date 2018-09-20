@@ -7,11 +7,9 @@ from math import log2
 
 class ImpurityMeasure(object):  
     
-    def __init__(self, purity_measure):
-        if purity_measure=="gini" or purity_measure=="entropy":
-            self.purity_measure = purity_measure
-        else:
-            self.purity_measure="entropy"
+    def __init__(self, purity_measure="entropy"):
+        self.purity_measure = purity_measure
+
     
     def randomness_reduction(self, entropy_src, entropy_branch):
         """ Calculates the reduction in randomness, aka Information Gain.
