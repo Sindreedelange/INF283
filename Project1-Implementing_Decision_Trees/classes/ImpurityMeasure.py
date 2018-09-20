@@ -1,9 +1,6 @@
 
 # coding: utf-8
 
-# In[4]:
-
-
 import numpy as np
 import pandas as pd
 from math import log2
