@@ -8,24 +8,33 @@
     │
     ├── classes            <- .Py files used in the Notebook:
     │                          ImpurityMeasure - meassures the information gain for a system
-    │                          User chooses whether to use *Entropy* or *Gini Index* 
+    │                           DataCleaning - cleans the data 
     │
     ├── nbs                <- The One Jupyter Notebook To Rule Them All - run the project from here
     │
     │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── src                <- Source code for use in this project.
+    ├── reports            <- PDf-file answer to task sheet
 ------------
 
 ## TODO
 - .yaml-file for environment set up
-- .py file for simple data cleaning (categorical, discrete values, only)
+- extract methods to seperate .py classes
 
 ### DATA
 This model assumes that the user has cleaned the data into categorical 
 variables only. 
+
+## Description
+
+This project assumes that the user has:
+- jupyter notebook
+- python, with the following packages:
+    - numpy
+    - pandas
+ If this is not the case, well then that it what the '.yaml' point under **TODO** is all about,
+ however these can easily be downloaded - i recommend using Conda: https://conda.io/docs/
+ - treelib. This can be downloaded directly from the Jupyter Notebook (first cell) 
+ 
+ ## Run the code
+ In order to run the code, open the .ipynb file *nbs/Implementing_Decision_Trees_Notebook.ipynb*
+ where it is pretty straight forward with comments ment to serve as explanations. 
