@@ -38,3 +38,7 @@ This project assumes that the user has:
  ## Run the code
  In order to run the code, open the .ipynb file */nbs/Implementing_Decision_Trees_Notebook.ipynb*
  where it is pretty straight forward with comments ment to serve as explanations. 
+
+## Known problems
+Pruning does currently not work - so if running */nbs/Implementing_Decision_Trees_Notebook.ipynb* from start
+to finish, one will not be able to do so.
