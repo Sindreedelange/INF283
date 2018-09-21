@@ -21,8 +21,8 @@
 - extract methods to seperate .py classes
 
 ### DATA
-This model assumes that the user has cleaned the data into categorical 
-variables only. 
+The models in the *.ipynb*-file assumes that the user cleans the data into categorical 
+variables only. This can be done using */classes/DataCleaning.py*
 
 ## Description
 
@@ -30,11 +30,11 @@ This project assumes that the user has:
 - jupyter notebook
 - python, with the following packages:
     - numpy
-    - pandas
+    - pandas <br>
  If this is not the case, well then that it what the '.yaml' point under **TODO** is all about,
  however these can easily be downloaded - i recommend using Conda: https://conda.io/docs/
  - treelib. This can be downloaded directly from the Jupyter Notebook (first cell) 
  
  ## Run the code
- In order to run the code, open the .ipynb file *nbs/Implementing_Decision_Trees_Notebook.ipynb*
+ In order to run the code, open the .ipynb file */nbs/Implementing_Decision_Trees_Notebook.ipynb*
  where it is pretty straight forward with comments ment to serve as explanations. 
