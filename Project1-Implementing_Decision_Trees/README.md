@@ -40,5 +40,7 @@ This project assumes that the user has:
  where it is pretty straight forward with comments ment to serve as explanations. 
 
 ## Known problems
-Pruning does currently not work - so if running */nbs/Implementing_Decision_Trees_Notebook.ipynb* from start
-to finish, one will not be able to do so.
+Pruning
+
+## Disclaimer
+If one tries to run **learn()** with pruning one's computer might not like you very much.. 
