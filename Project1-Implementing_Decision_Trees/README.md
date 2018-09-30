@@ -43,4 +43,4 @@ This project assumes that the user has:
 Pruning
 
 ## Disclaimer
-If one tries to run **learn()** with pruning one's computer might not like you very much.. 
+If one tries to run **learn()** with pruning one's computer might not be very happy.. 
