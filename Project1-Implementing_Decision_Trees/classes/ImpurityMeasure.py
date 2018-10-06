@@ -54,7 +54,7 @@ class ImpurityMeasure(object):
         else:
             return 0
 
-    def calc_entropy_system(self, target_variable):
+    def calc_impurity_system(self, target_variable):
         """ Calculate the entropy for an entire system
         
         Calculates the entropy of the (entire) system, i.e. target variable
@@ -76,7 +76,7 @@ class ImpurityMeasure(object):
                 purity += self.calc_gini(value/tot_len)
         return purity
 
-    def calc_entropy_all_branches(self, feature_entr_dict, entropy_src):
+    def calc_impurity_all_branches(self, feature_entr_dict, entropy_src):
         """ Calculate the entropy for multiple columns/features
         
         Calculates the entropy for all branches in a python dictionary
@@ -114,7 +114,7 @@ class ImpurityMeasure(object):
             information_gain_dict[key] = self.randomness_reduction(entropy_src, value)
         return information_gain_dict
     
-    def calc_entropy_feature(self, X_y_zip, tot_num_occurences):
+    def calc_impurity_feature(self, X_y_zip, tot_num_occurences):
         """ Calculate Entropy Feature 
         
         Calculates the necessary numbers, to calculate the entropy - store it in a dictionary.
@@ -158,7 +158,7 @@ class ImpurityMeasure(object):
         return columns_entropy
     
     
-    def calc_entropy_dataset(self, X, y):
+    def calc_impurity_dataset(self, X, y):
         """ Calculate Entropy Dataset
         
         Calculates the entropy of an entire dataset
@@ -173,7 +173,7 @@ class ImpurityMeasure(object):
         # Number of datapoints in the set
         tot_num_occurences = len(y)
         # Calculate the impurity of the target variable
-        entropy_system = self.calc_entropy_system(y)
+        entropy_system = self.calc_impurity_system(y)
         # Small hack because the system was initially made for full Dataframe input
         data = pd.concat([X, y], axis=1)
         X_y_zip = {}
@@ -181,9 +181,9 @@ class ImpurityMeasure(object):
             # Map each value in each column, in X, to their respective "outcome"/target variable (y)
             X_y_zip[columns] = data[[columns, y.name]].apply(tuple, axis=1)
         # Calculate the entropy for each feature - using the just made dictionary
-        each_feature_w_entropy = self.calc_entropy_feature(X_y_zip, tot_num_occurences)
+        each_feature_w_entropy = self.calc_impurity_feature(X_y_zip, tot_num_occurences)
 
-        return self.calc_entropy_all_branches(each_feature_w_entropy, entropy_system)
+        return self.calc_impurity_all_branches(each_feature_w_entropy, entropy_system)
     
     def getLargestInformationGain(self, X, y):
         """  Get Largest Information Gain
@@ -197,6 +197,6 @@ class ImpurityMeasure(object):
         Returns:
             String. Name of column that gives the best/largest information gain
         """
-        ig_dict = self.calc_entropy_dataset(X, y)
+        ig_dict = self.calc_impurity_dataset(X, y)
         return (max(ig_dict, key=ig_dict.get))
 
