@@ -1,0 +1,2054 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{regression-assignment-02}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{inf283-weekly-exercise-02-regression}{%
+\section{INF283 \textbar{} Weekly Exercise 02 \textbar{}
+Regression}\label{inf283-weekly-exercise-02-regression}}
+
+\hypertarget{deadline}{%
+\paragraph{Deadline}\label{deadline}}
+
+Sep 07, 2018 \textbar{} 23:59
+
+\hypertarget{what-to-deliver}{%
+\paragraph{What to deliver}\label{what-to-deliver}}
+
+You can try out your Python code within this notebook. But you should
+make a PDF file of answers for each of the tasks, and then submit this
+PDF file on Mitt UiB.
+
+\hypertarget{where-to-deliver}{%
+\paragraph{Where to deliver}\label{where-to-deliver}}
+
+On \href{https://mitt.uib.no/courses/12791/assignments}{Mitt UiB} in the
+assignments section.
+
+\hypertarget{note-to-students}{%
+\paragraph{Note to students}\label{note-to-students}}
+
+This is a Python notebook and all the examples are in Python. You are
+free to use any programming language you want to do the exercise
+questions in; we will grade your submissions. But, if you got stuck
+somewhere, we can provide help for Python only. Moreover, the solution
+provided after the deadline will also in be in Python.
+
+In case you want to learn Python, you can quickly learn it using these
+\href{https://www.youtube.com/watch?v=oVp1vrfL_w4\&list=PLQVvvaa0QuDe8XSftW-RAxdo6OmaeL85M}{set
+of short videos}.
+
+    \hypertarget{todo}{%
+\section{TODO:}\label{todo}}
+
+\hypertarget{men-skal-den-gjuxf8res-for-huxe5nd-eller-kan-en-bruke-verktuxf8y}{%
+\subsection{1.4 - men skal den gjøres for hånd, eller kan en bruke
+verktøy?}\label{men-skal-den-gjuxf8res-for-huxe5nd-eller-kan-en-bruke-verktuxf8y}}
+
+\hypertarget{for-huxe5nd-rip}{%
+\subsection{--\textgreater{} For hånd, RIP}\label{for-huxe5nd-rip}}
+
+    \hypertarget{table-of-contents}{%
+\subsection{Table of Contents:}\label{table-of-contents}}
+
+Section \ref{univariate} * Section \ref{exercise1_1}
+
+\begin{itemize}
+\item
+  Section \ref{exercise1_2}
+\item
+  Section \ref{exercise1_3}
+\item
+  Section \ref{exercise1_4}
+\item
+  Section \ref{exercise1_5}
+\end{itemize}
+
+Section \ref{multivariate}
+
+\begin{itemize}
+\item
+  Section \ref{exercise2_1}
+\item
+  Section \ref{exercise2_2}
+\item
+  Section \ref{exercise2_3}
+\end{itemize}
+
+Section \ref{logistic}
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{exercise3_1}
+\end{itemize}
+
+    \hypertarget{univariate-linear-regression}{%
+\section{1. Univariate Linear Regression
+}\label{univariate-linear-regression}}
+
+In univariate regression, the response variable is modeled in terms of
+just one predictor variable. In this section, we will experiment with
+various ways in which we can perform linear regression.
+
+    \hypertarget{linear-regression-with-gradient-descent}{%
+\section{Linear Regression with Gradient
+Descent}\label{linear-regression-with-gradient-descent}}
+
+In the lecture, you saw the closed-form solution
+\[\hat{w} = (X^TX)^{-1}X^Ty\] to find the best values of linear
+regression parameters. This closed-form solution exists only when the
+matrix X is invertible. Even if the matrix X is invertible, but is very
+large in its dimensions, it might not be possible to invert it with the
+compute resources that you might have at your disposal. In these
+scenarios, we can use gradient descent to find the best value of
+parameter estimates.
+
+Gradient descent attempts to find the \emph{best} values for these
+parameters so that the value of some error function is minimized. We
+will be using Mean Squared Error (MSE) as our error function, which is
+the mean of the sum of squared error (SSE). Error functions are also
+called the loss functions.
+
+This code demonstrates how a gradient descent search may be used to
+solve the linear regression problem of fitting a line through a set of
+points. The goal is to model a set of points with a straight line. A
+straight line is defined by two parameters: the line's slope \(w_0\) ,
+and its y-intercept \(w_1\) (some texts may denote \(w_0\) and \(w_1\)
+as \(b\) and \(m\), respectively, so don't get confused by the
+notation).
+
+\(w_0\) and \(w_1\) can take on any value, but only certain specific
+values of \(w_0\) and \(w_1\) will yield a line that minimizes the sum
+of squares error between the original points and the line that tries to
+model these points (refer to this
+\href{http://www.dangoldstein.com/regression.html}{interactive demo} to
+get a better understanding of this concept).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} install numpy first. If you have it installed already then pip won\PYZsq{}t install it}
+        \PY{c+c1}{\PYZsh{} and you will get requirement already satisfied message. That\PYZsq{}s normal.}
+        \PY{c+c1}{\PYZsh{} !pip install numpy}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \hypertarget{finding-the-mean-squared-error-mse}{%
+\subsubsection{Finding the mean squared error
+(MSE)}\label{finding-the-mean-squared-error-mse}}
+
+Now we define a function called
+\texttt{compute\_error\_for\_line\_given\_points} to find the mean
+squared error between a line (modeled by parameters \texttt{w0} and
+\texttt{w1}) and a set of points to which it tries to model.
+Mathematically, it is given as: \[
+MSE = \dfrac{1}{n} \sum_{i=1}^{n} [y_i - (w_0 x_i + w_1)]^2 
+\] where \texttt{n} is the number of data points.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} We are now going to define a function which takes the parameters (w0 and w1) of }
+         \PY{c+c1}{\PYZsh{} a line and then finds the mean\PYZhy{}squared error between the user\PYZhy{}specified points }
+         \PY{c+c1}{\PYZsh{} and the line. }
+         \PY{k}{def} \PY{n+nf}{compute\PYZus{}error\PYZus{}for\PYZus{}line\PYZus{}given\PYZus{}points}\PY{p}{(}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{points}\PY{p}{)}\PY{p}{:}
+             \PY{n}{totalError} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{} accumulate \PYZsq{}sum of square\PYZsq{} errors in totalError variable}
+                 \PY{n}{totalError} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{w1} \PY{o}{*} \PY{n}{x} \PY{o}{+} \PY{n}{w0}\PY{p}{)}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}
+             \PY{c+c1}{\PYZsh{} find mean of sum of squared errors    }
+             \PY{n}{mse} \PY{o}{=} \PY{n}{totalError}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}
+             \PY{k}{return} \PY{n}{mse}
+         
+         \PY{c+c1}{\PYZsh{} N.B.: Students who wish to do this excercise in R should implement this function in R themselves}
+\end{Verbatim}
+
+
+    \hypertarget{gradient-descent}{%
+\subsubsection{Gradient Descent}\label{gradient-descent}}
+
+In gradient descent, we start with some initial values of \(w_0\) and
+\(w_1\) and then refine these crude estimate until we can no longer see
+an appreciable decrease in the mean squared error. To refine the \(w_0\)
+and \(w_1\) estimates, we need to update them (make their values higher
+or lower) so that the mean squared error gets reduced. Taking partial
+derivative of MSE with respect to \(w_0\) and \(w_1\), can tells us
+whether to increase or decrease the values of these parameter to get an
+improved fit.
+
+If we take the partial derivative of the MSE function with respect of
+\(w_0\), we get: \[
+\frac{\partial MSE}{\partial w_0} =\frac{\partial}{\partial w_0} \left(\dfrac{1}{n} \sum_{i=1}^{n} [y_i - (w_1 x_i + w_0)]^2\right)
+=-\dfrac{2}{n}\left( \sum_{i=1}^{n} y_i - (w_1 x_i + w_0)\right)
+\]
+
+If we take the partial derivative of the MSE function with respect of
+\(w_1\), we get: \[
+\frac{\partial MSE}{\partial w_1} =\frac{\partial}{\partial w_1} \left(\dfrac{1}{n} \sum_{i=1}^{n} [y_i - (w_1 x_i + w_0)]^2\right) 
+=-\dfrac{2}{n}\left( \sum_{i=1}^{n} x_i[y_i - (w_1 x_i + w_0)]\right)
+\]
+
+The gradient \(\nabla\) of MSE is just as a vector of these partial
+derivatives of MSE with respect to \(w_0\) and \(w_0\): \[
+\nabla MSE(w_0, w_1) = \left(\frac{\partial MSE}{\partial w_0}, \frac{\partial MSE}{\partial w_1}\right)
+\]
+
+We can now define the update rule for \(w_0\) and \(w_1\). Update rule
+modify the current value of the parameter such that the updated
+parameter values cause a decrease in the MSE.
+
+Update rule for the weight vector of \(w_0\) and \(w_1\): \[
+(w_0, w_1)_{t+1} =(w_0, w_1)_{t} - \eta \left(\frac{\partial MSE}{\partial w_0}, \frac{\partial MSE}{\partial w_1}\right)
+\]
+
+where \(\eta\) is the learning rate.
+
+The \texttt{step\_gradient} function below shows you how to implement
+the gradient descent.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{step\PYZus{}gradient}\PY{p}{(}\PY{n}{w0\PYZus{}current}\PY{p}{,} \PY{n}{w1\PYZus{}current}\PY{p}{,} \PY{n}{points}\PY{p}{,} \PY{n}{learningRate}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}initialize the partial derivatives for the cummlative sum}
+             \PY{n}{w0\PYZus{}par\PYZus{}der} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{w1\PYZus{}par\PYZus{}der} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{n}{n} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} computation for the summation}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{points}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y} \PY{o}{=} \PY{n}{points}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{c+c1}{\PYZsh{} partial derivative (of MSE) with respect to w0}
+                 \PY{n}{w0\PYZus{}par\PYZus{}der} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{n}{w1\PYZus{}current} \PY{o}{*} \PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{w0\PYZus{}current}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} partial derivative (of MSE) with respect to w1}
+                 \PY{n}{w1\PYZus{}par\PYZus{}der} \PY{o}{+}\PY{o}{=} \PY{n}{x} \PY{o}{*} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{p}{(}\PY{n}{w1\PYZus{}current} \PY{o}{*} \PY{n}{x}\PY{p}{)} \PY{o}{+} \PY{n}{w0\PYZus{}current}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} multiplcation of summation results with \PYZhy{}2/n}
+             \PY{n}{w0\PYZus{}par\PYZus{}der} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{n}\PY{p}{)} \PY{o}{*} \PY{n}{w0\PYZus{}par\PYZus{}der}
+                 \PY{c+c1}{\PYZsh{} partial derivative (of MSE) with respect to w1}
+             \PY{n}{w1\PYZus{}par\PYZus{}der} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{n}\PY{p}{)} \PY{o}{*} \PY{n}{w1\PYZus{}par\PYZus{}der}
+                  
+             \PY{c+c1}{\PYZsh{} make a gradient vector from the partial derivatives    }
+             \PY{n}{gradient\PYZus{}mse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{w0\PYZus{}par\PYZus{}der}\PY{p}{,} \PY{n}{w1\PYZus{}par\PYZus{}der}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} make a vector of weights}
+             \PY{n}{weight\PYZus{}vector} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{w0\PYZus{}current}\PY{p}{,} \PY{n}{w1\PYZus{}current}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} update rule for weights}
+             \PY{n}{updated\PYZus{}weight\PYZus{}vector} \PY{o}{=} \PY{n}{weight\PYZus{}vector} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{learningRate} \PY{o}{*} \PY{n}{gradient\PYZus{}mse}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} return the updated weight vector as a list}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{n}{updated\PYZus{}weight\PYZus{}vector}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} N.B. Students who wish to do this excercise in R should implement this function in R themselves}
+\end{Verbatim}
+
+
+    \hypertarget{running-gradient-descent-iteratively}{%
+\subsubsection{Running Gradient Descent
+Iteratively}\label{running-gradient-descent-iteratively}}
+
+Gradient descent is an iterative method of improving the parameter
+estimates. Therefore, we run \texttt{step\_gradient} function until we
+reach the absolute minimum of error, or until we have executed the
+\texttt{gradient\_step} function a certain number of times, or if the
+error is small. Here we implement a function called
+\texttt{gradient\_descent\_runner} that runs the gradient\_step function
+for \texttt{num\_iterations} times. In the exercise later on, we will
+ask you to make some changes in this function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{def} \PY{n+nf}{gradient\PYZus{}descent\PYZus{}runner}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{starting\PYZus{}w0}\PY{p}{,} \PY{n}{starting\PYZus{}w1}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{num\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+             \PY{n}{w0} \PY{o}{=} \PY{n}{starting\PYZus{}w0}
+             \PY{n}{w1} \PY{o}{=} \PY{n}{starting\PYZus{}w1}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{w0}\PY{p}{,} \PY{n}{w1} \PY{o}{=} \PY{n}{step\PYZus{}gradient}\PY{p}{(}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{points}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}
+                 \PY{n}{mse} \PY{o}{=} \PY{n}{compute\PYZus{}error\PYZus{}for\PYZus{}line\PYZus{}given\PYZus{}points}\PY{p}{(}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{points}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{i+1\PYZcb{}: w0=}\PY{l+s+si}{\PYZob{}w0:0.5f\PYZcb{}}\PY{l+s+s1}{, w1=}\PY{l+s+si}{\PYZob{}w1:0.5f\PYZcb{}}\PY{l+s+s1}{, mse=}\PY{l+s+si}{\PYZob{}mse:0.5f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{p}{[}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{mse}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} N.B.: Students who wish to do this exercise in R should implement this function in R themselves}
+\end{Verbatim}
+
+
+    \hypertarget{bringing-it-all-together}{%
+\subsubsection{Bringing it all
+together}\label{bringing-it-all-together}}
+
+All the functions we have define above won't do anything unless we call
+them. But we first need the data. We will generate the data points from
+a straight line and then add noise to it: \[
+y = 4 + 3x + noise
+\] The the slope (\(w_0\)) of the line is 3, and y-intercept (\(w_1\))
+of the line of the line is 4.
+
+We will then use gradient descent to estimate the parameters of the line
+that generated this noisy linear data. If everything works correctly,
+then the parameters estimates should be close to the actual values of
+\(w_0\) and \(w_1\) used to generate the original data.
+
+The first column is the x values, and the second column contains the
+y-values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate 100 x values from 0 to 2 randomly, then sort them in ascending order}
+         \PY{n}{X} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{X}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate y values and add noise to it}
+         \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{X} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} let us plot the data}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} <matplotlib.collections.PathCollection at 0x2a4d1242390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} combine the x and y values into a single array called points}
+         \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{num\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{initial\PYZus{}w0} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} initial y\PYZhy{}intercept guess}
+         \PY{n}{initial\PYZus{}w1} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} initial slope guess}
+         \PY{n}{early\PYZus{}stop} \PY{o}{=} \PY{l+m+mf}{0.00064}
+         \PY{p}{[}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{mse}\PY{p}{]} \PY{o}{=} \PY{n}{gradient\PYZus{}descent\PYZus{}runner\PYZus{}early\PYZus{}stop}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{initial\PYZus{}w0}\PY{p}{,} \PY{n}{initial\PYZus{}w1}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{num\PYZus{}iterations}\PY{p}{,} \PY{n}{early\PYZus{}stop}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Iteration 1: w0=1.44691, w1=1.50194, mse=20.14308
+Iteration 2: w0=2.32806, w1=2.39849, mse=7.47831
+Iteration 3: w0=2.86801, w1=2.93046, mse=2.87255
+Iteration 4: w0=3.20208, w1=3.24295, mse=1.19394
+Iteration 5: w0=3.41183, w1=3.42341, mse=0.57873
+Iteration 6: w0=3.54643, w1=3.52453, mse=0.35003
+Iteration 7: w0=3.63550, w1=3.57805, mse=0.26199
+Iteration 8: w0=3.69691, w1=3.60309, mse=0.22532
+Iteration 9: w0=3.74143, w1=3.61118, mse=0.20757
+Iteration 10: w0=3.77555, w1=3.60925, mse=0.19693
+Iteration 11: w0=3.80321, w1=3.60148, mse=0.18912
+Iteration 12: w0=3.82676, w1=3.59037, mse=0.18255
+Iteration 13: w0=3.84765, w1=3.57743, mse=0.17664
+Iteration 14: w0=3.86674, w1=3.56358, mse=0.17117
+Iteration 15: w0=3.88456, w1=3.54934, mse=0.16604
+Iteration 16: w0=3.90144, w1=3.53503, mse=0.16122
+Iteration 17: w0=3.91758, w1=3.52085, mse=0.15667
+Iteration 18: w0=3.93309, w1=3.50690, mse=0.15238
+Iteration 19: w0=3.94807, w1=3.49325, mse=0.14833
+Iteration 20: w0=3.96257, w1=3.47992, mse=0.14451
+Iteration 21: w0=3.97662, w1=3.46694, mse=0.14090
+Iteration 22: w0=3.99025, w1=3.45430, mse=0.13750
+Iteration 23: w0=4.00348, w1=3.44201, mse=0.13428
+Iteration 24: w0=4.01632, w1=3.43005, mse=0.13125
+Iteration 25: w0=4.02880, w1=3.41844, mse=0.12838
+Iteration 26: w0=4.04092, w1=3.40715, mse=0.12568
+Iteration 27: w0=4.05269, w1=3.39618, mse=0.12313
+Iteration 28: w0=4.06412, w1=3.38552, mse=0.12072
+Iteration 29: w0=4.07523, w1=3.37516, mse=0.11844
+Iteration 30: w0=4.08603, w1=3.36510, mse=0.11630
+Iteration 31: w0=4.09651, w1=3.35533, mse=0.11427
+Iteration 32: w0=4.10670, w1=3.34583, mse=0.11236
+Iteration 33: w0=4.11660, w1=3.33660, mse=0.11055
+Iteration 34: w0=4.12622, w1=3.32763, mse=0.10885
+Iteration 35: w0=4.13556, w1=3.31892, mse=0.10724
+Iteration 36: w0=4.14464, w1=3.31046, mse=0.10572
+Iteration 37: w0=4.15346, w1=3.30223, mse=0.10429
+Iteration 38: w0=4.16203, w1=3.29424, mse=0.10293
+Iteration 39: w0=4.17035, w1=3.28648, mse=0.10166
+Iteration 40: w0=4.17844, w1=3.27894, mse=0.10045
+Iteration 41: w0=4.18630, w1=3.27162, mse=0.09931
+Iteration 42: w0=4.19393, w1=3.26450, mse=0.09824
+Iteration 43: w0=4.20135, w1=3.25758, mse=0.09722
+Iteration 44: w0=4.20856, w1=3.25086, mse=0.09627
+Iteration 45: w0=4.21556, w1=3.24433, mse=0.09536
+Iteration 46: w0=4.22236, w1=3.23799, mse=0.09451
+Iteration 47: w0=4.22897, w1=3.23183, mse=0.09371
+Iteration 48: w0=4.23539, w1=3.22584, mse=0.09295
+Iteration 49: w0=4.24163, w1=3.22002, mse=0.09223
+Iteration 50: w0=4.24769, w1=3.21437, mse=0.09155
+
+    \end{Verbatim}
+
+    \hypertarget{exercise-1.1}{%
+\subsection{Exercise 1.1 }\label{exercise-1.1}}
+
+As you can see, the mean squared error decreases every iteration of
+gradient descent. Currently the gradient descent runs for 20 iterations.
+Making changes in the above code so that it now runs for 100 iterations.
+Observing the mean squared error now. You will see that the mean squared
+error stops decreasing any further by an appreciable amount after 50
+iterations. But since you have specified that the gradient descent
+should run for 100 iterations, therefore, the program will run for 100
+iterations, although the last 50 iterations would be pretty much useless
+and a waste of your compute resources. In our case, we have a very small
+dataset, and each iteration takes a very small amount of time, but
+real-world datasets can be huge, and each iteration of gradient descent
+will take a considerable amount of time. So you can't afford to run
+gradient descent if it no longer yields a decrease in the loss.
+
+Your task is to now modify \texttt{gradient\_descent\_runner} function
+to implement an early stop such that if the improvement in error loss
+between two consecutive iterations of gradient descent steps is less
+than a certain user-specified threshold then the algorithm stops,
+otherwise the algorithm runs for a maximum of \texttt{num\_iterations}.
+Name your function as \texttt{gradient\_descent\_runner\_early\_stop}
+
+Paste the code for modified
+\texttt{gradient\_descent\_runner\_early\_stop} function in the block
+provided below (the code can be Python or R):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} TODO:}
+         \PY{c+c1}{\PYZsh{} Paste your code below for the modified gradient\PYZus{}descent\PYZus{}runner\PYZus{}early\PYZus{}stop function}
+         \PY{k}{def} \PY{n+nf}{gradient\PYZus{}descent\PYZus{}runner\PYZus{}early\PYZus{}stop}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{starting\PYZus{}w0}\PY{p}{,} \PY{n}{starting\PYZus{}w1}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{num\PYZus{}iterations}\PY{p}{,} \PY{n}{early\PYZus{}stop}\PY{p}{)}\PY{p}{:}
+             \PY{n}{w0} \PY{o}{=} \PY{n}{starting\PYZus{}w0}
+             \PY{n}{w1} \PY{o}{=} \PY{n}{starting\PYZus{}w1}
+             \PY{n}{mse\PYZus{}t0} \PY{o}{=} \PY{l+m+mf}{1e4} \PY{c+c1}{\PYZsh{} Set to a high number for case 0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{w0}\PY{p}{,} \PY{n}{w1} \PY{o}{=} \PY{n}{step\PYZus{}gradient}\PY{p}{(}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{points}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{p}{)}
+                 \PY{n}{mse\PYZus{}t1} \PY{o}{=} \PY{n}{compute\PYZus{}error\PYZus{}for\PYZus{}line\PYZus{}given\PYZus{}points}\PY{p}{(}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{points}\PY{p}{)}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{mse\PYZus{}t0} \PY{o}{\PYZhy{}} \PY{n}{mse\PYZus{}t1} \PY{o}{\PYZlt{}} \PY{n}{early\PYZus{}stop}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{break}\PY{p}{;}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{i+1\PYZcb{}: w0=}\PY{l+s+si}{\PYZob{}w0:0.5f\PYZcb{}}\PY{l+s+s1}{, w1=}\PY{l+s+si}{\PYZob{}w1:0.5f\PYZcb{}}\PY{l+s+s1}{, mse=}\PY{l+s+si}{\PYZob{}mse\PYZus{}t1:0.5f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{n}{mse\PYZus{}t0} \PY{o}{=} \PY{n}{mse\PYZus{}t1}
+             \PY{k}{return} \PY{p}{[}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{mse\PYZus{}t0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} N.B.: Students who wish to do this exercise in R should implement this function in R themselves}
+\end{Verbatim}
+
+
+    \hypertarget{exercise-1.2}{%
+\subsection{Exercise 1.2}\label{exercise-1.2}}
+
+In the program above we had set the learning rate to 0.1. Using the
+original \texttt{gradient\_descent\_runner} function, first set the
+number of iterations to 100. Then try to run the code with two different
+values of learning rates: 1. a learning rate of 0.001 2. a learning rate
+of 1
+
+Explain what you observe.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{num\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{]}
+         \PY{n}{initial\PYZus{}w0} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} initial y\PYZhy{}intercept guess}
+         \PY{n}{initial\PYZus{}w1} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} initial slope guess}
+         \PY{k}{for} \PY{n}{lr} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rate}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Learning rate: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{lr}\PY{p}{)}\PY{p}{)}
+             \PY{p}{[}\PY{n}{w0}\PY{p}{,} \PY{n}{w1}\PY{p}{,} \PY{n}{mse}\PY{p}{]} \PY{o}{=} \PY{n}{gradient\PYZus{}descent\PYZus{}runner}\PY{p}{(}\PY{n}{points}\PY{p}{,} \PY{n}{initial\PYZus{}w0}\PY{p}{,} \PY{n}{initial\PYZus{}w1}\PY{p}{,} \PY{n}{lr}\PY{p}{,} \PY{n}{num\PYZus{}iterations}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---------------------
+Learning rate: 1
+Iteration 1: w0=14.46909, w1=15.01936, mse=483.98307
+Iteration 2: w0=-27.63731, w1=-30.49961, mse=4278.09221
+Iteration 3: w0=98.22913, w1=104.24335, mse=37827.69970
+Iteration 4: w0=-275.57959, w1=-296.87049, mse=334488.31203
+Iteration 5: w0=836.32392, w1=895.57718, mse=2957692.12000
+Iteration 6: w0=-2469.81803, w1=-2650.53870, mse=26153214.73718
+Iteration 7: w0=7361.57780, w1=7894.11599, mse=231258234.25651
+Iteration 8: w0=-21873.17401, w1=-23461.83812, mse=2044887084.99066
+Iteration 9: w0=65060.07599, w1=69778.89935, mse=18081791573.71681
+Iteration 10: w0=-193446.66542, w1=-207484.06081, mse=159887159014.96710
+Iteration 11: w0=575255.24824, w1=616991.70891, mse=1413792627447.72021
+Iteration 12: w0=-1710575.23215, w1=-1834689.31487, mse=12501376631748.20508
+Iteration 13: w0=5086625.32639, w1=5455688.36666, mse=110542674119727.78125
+Iteration 14: w0=-15125693.84330, w1=-16223154.19855, mse=977466975157565.87500
+Iteration 15: w0=44978144.95253, w1=48241573.84178, mse=8643193184279693.00000
+Iteration 16: w0=-133748076.75330, w1=-143452293.10243, mse=76426918064149024.00000
+Iteration 17: w0=397716517.97302, w1=426573203.61809, mse=675800445535331328.00000
+Iteration 18: w0=-1182659393.00270, w1=-1268468333.67868, mse=5975724963846049792.00000
+Iteration 19: w0=3516784454.77990, w1=3771947980.47366, mse=52839990087970406400.00000
+Iteration 20: w0=-10457594884.37900, w1=-11216355291.73292, mse=467234447600781295616.00000
+Iteration 21: w0=31096955875.25883, w1=33353224079.88281, mse=4131492618779039891456.00000
+Iteration 22: w0=-92470656462.01787, w1=-99179949908.28885, mse=36532476033552508518400.00000
+Iteration 23: w0=274972969798.20129, w1=294923886273.86646, mse=323036231282558565875712.00000
+Iteration 24: w0=-817666241443.79883, w1=-876992766890.67065, mse=2856428527466854475628544.00000
+Iteration 25: w0=2431432016415.39111, w1=2607846800439.97363, mse=25257798173696697995100160.00000
+Iteration 26: w0=-7230164767415.85742, w1=-7754756015417.61426, mse=223340567582466410811490304.00000
+Iteration 27: w0=21499791979058.07812, w1=23059729140774.07422, mse=1974875592283573006056292352.00000
+Iteration 28: w0=-63932298918752.21875, w1=-68570965609787.70312, mse=17462719143298099615167938560.00000
+Iteration 29: w0=190110622885071.78125, w1=203904273808046.31250, mse=154413048127804340884759117824.00000
+Iteration 30: w0=-565317524083972.75000, w1=-606334656475201.50000, mse=1365388129790218217853185687552.00000
+Iteration 31: w0=1681041796542035.50000, w1=1803011328683601.00000, mse=12073362760308960054034821021696.00000
+Iteration 32: w0=-4998786348079800.00000, w1=-5361477884605017.00000, mse=106757987096615000594771899056128.00000
+Iteration 33: w0=14864511403077568.00000, w1=15943019685903008.00000, mse=944001106832421675571884142362624.00000
+Iteration 34: w0=-44201468889963352.00000, w1=-47408547078958272.00000, mse=8347273247990020007291641114132480.00000
+Iteration 35: w0=131438551799683552.00000, w1=140975196695336864.00000, mse=73810263751077128144318538417438720.00000
+Iteration 36: w0=-390848841295428480.00000, w1=-419207238099683328.00000, mse=652662836491594575934357806744862720.00000
+Iteration 37: w0=1162237522023175168.00000, w1=1246564733333531392.00000, mse=5771132041660505993278291015708442624.00000
+Iteration 38: w0=-3456057469996573696.00000, w1=-3706814895265212416.00000, mse=51030889427254011544005774131561758720.00000
+Iteration 39: w0=10277015678453497856.00000, w1=11022673993845168128.00000, mse=451237583361087579455046851961502564352.00000
+Iteration 40: w0=-30559981184364912640.00000, w1=-32777288698657177600.00000, mse=3990041304841726917243677067779583770624.00000
+Iteration 41: w0=90873895614147133440.00000, w1=97467334608191717376.00000, mse=35281701262022953199434757190323458277376.00000
+Iteration 42: w0=-270224803289993510912.00000, w1=-289831212183648305152.00000, mse=311976330278117040116721539261662576508928.00000
+Iteration 43: w0=803546979246565752832.00000, w1=861849068649743384576.00000, mse=2758632015247104779556976841012464333094912.00000
+Iteration 44: w0=-2389446638484020264960.00000, w1=-2562815134837079277568.00000, mse=24393038371732209780361586873318785501102080.00000
+Iteration 45: w0=7105316037048609538048.00000, w1=7620848770701920829440.00000, mse=215693980826761637884735389238744033477525504.00000
+Iteration 46: w0=-21128538789370314883072.00000, w1=-22661539334791335247872.00000, mse=1907261106874226489114903490506882505349529600.00000
+Iteration 47: w0=62828331498025426878464.00000, w1=67386898818488688705536.00000, mse=16864842105708712739711165366048617210115522560.00000
+Iteration 48: w0=-186827838790806020292608.00000, w1=-200383304297499108311040.00000, mse=149126356231643938261551691917602954545528307712.00000
+Iteration 49: w0=555555758286219063066624.00000, w1=595864616790576022421504.00000, mse=1318640873334915051842443554696386119946685382656.00000
+Iteration 50: w0=-1652013974804723664945152.00000, w1=-1771877366668474309410816.00000, mse=11660002944942192203113746899168229287494959497216.00000
+Iteration 51: w0=4912468518675780716199936.00000, w1=5268897185777084987867136.00000, mse=103102877686645173842567246792470233789410303803392.00000
+Iteration 52: w0=-14607834627932368389799936.00000, w1=-15667719491494545545232384.00000, mse=911681020790687006525494654614755034375591668219904.00000
+Iteration 53: w0=43438208653302789820121088.00000, w1=46589907794519582543183872.00000, mse=8061484822916908200737727233861485309732380420866048.00000
+Iteration 54: w0=-129168902788636191102074880.00000, w1=-138540871214868894857560064.00000, mse=71283196719129907183119554986741687305746551937171456.00000
+Iteration 55: w0=384099758366797593449594880.00000, w1=411968469257898883547136000.00000, mse=630317397615541306417489204923377845798106838981410816.00000
+Iteration 56: w0=-1142168286579359359952748544.00000, w1=-1225039356071851362149728256.00000, mse=5573543836737152609823174573091584356095308478296358912.00000
+Iteration 57: w0=3396379108423821020629041152.00000, w1=3642806515334215211702812672.00000, mse=49283727559394247434516007898837238646847281382620659712.00000
+Iteration 58: w0=-10099554666050775603411419136.00000, w1=-10832337134630864381504651264.00000, mse=435788409187520490428162182095132556608201019125273722880.00000
+Iteration 59: w0=30032278846481371231888080896.00000, w1=32211298432779203032867930112.00000, mse=3853432907511270220361190834184050088547874980135404830720.00000
+Iteration 60: w0=-89304707240670524802705915904.00000, w1=-95784292330458461581602717696.00000, mse=34073749690532111940667211104400615502597305230921039872000.00000
+Iteration 61: w0=265558626973000207057415045120.00000, w1=284826477156547651947057905664.00000, mse=301295090855203036249609395694965927170408637555319297277952.00000
+Iteration 62: w0=-789671525037693513313755856896.00000, w1=-846966868111548457562834731008.00000, mse=2664183795382791572931672553194884232068056180272467827228672.00000
+Iteration 63: w0=2348186253872888295693007978496.00000, w1=2518561065109161754053750816768.00000, mse=23557885644381030726539050674610621314427974129046484475183104.00000
+Iteration 64: w0=-6982623164250967163832618713088.00000, w1=-7489253803784422328528116121600.00000, mse=208309192855065064947028634602912421745250874469166078528323584.00000
+Iteration 65: w0=20763696309659724232710741295104.00000, w1=22270225373736721344467606437888.00000, mse=1841961561532522476831107804379992869084720630097411651722543104.00000
+Iteration 66: w0=-61743427118771761941526809149440.00000, w1=-66223278205154421749547479859200.00000, mse=16287434787018486650977586300644854780074782160751690660947427328.00000
+Iteration 67: w0=183601741015521157820071649738752.00000, w1=196923134033889442017187492528128.00000, mse=144020666598853990250914334254486203411231173749519539955786842112.00000
+Iteration 68: w0=-545962556290981348904441237995520.00000, w1=-585575371210041818387875887054848.00000, mse=1273494118552673455077107524897891565401166887522069481143077437440.00000
+Iteration 69: w0=1623487398447840795783195541897216.00000, w1=1741281018352914056177197391020032.00000, mse=11260795469760408384623206608830265277837470997865325589865774972928.00000
+Iteration 70: w0=-4827641204599728969524468856651776.00000, w1=-5177915147986273575495390206099456.00000, mse=99572909497133192570033089533811624648063390943004518831843014868992.00000
+Iteration 71: w0=14355590085042411592695539019284480.00000, w1=15397173114025081183807555988619264.00000, mse=880467488495750081567187020626454533612530541660269073983520093765632.00000
+Iteration 72: w0=-42688128209158138889040242619187200.00000, w1=-45785404574552828940679790926495744.00000, mse=7785481033074900999288024921775242600792891169751720456789496002772992.00000
+Iteration 73: w0=126938445525845471052227808346505216.00000, w1=136148581075962961826456111314632704.00000, mse=68842649738181218533584181044008979133013763682734410216261928339111936.00000
+Iteration 74: w0=-377467216964110262335345386827284480.00000, w1=-404854697719553774449005302822993920.00000, mse=608737007108486612795773084061540387004468353540123052277587788722864128.00000
+Iteration 75: w0=1122445601822186206968016250557431808.00000, w1=1203885673800306984933711245190627328.00000, mse=5382720526195531702561829509472065230284562213438392075446532468585267200.00000
+Iteration 76: w0=-3337731258314180793361471344958504960.00000, w1=-3579903416572400869471482656787005440.00000, mse=47596383864934143513298404876713260929699419436370212879973230884736204800.00000
+Iteration 77: w0=9925158007338687326677383318253600768.00000, w1=10645286966104852017096262958624800768.00000, mse=420868173629543369185923125322353881928864810372146107034292713060460134400.00000
+Iteration 78: w0=-29513688744489849159455774932669038592.00000, w1=-31655081549440997161993221534665146368.00000, mse=3721501618209380260108234567994578190509296341295883965373466255756944736256.00000
+Iteration 79: w0=87762615231169619650215142124419022848.00000, w1=94130312418286196410991191490796978176.00000, mse=32907155166657270641074492464965857891098258905433395411300945094356542423040.00000
+Iteration 80: w0=-260973025056121685005178944705401978880.00000, w1=-279908162679196575954074590267800813568.00000, mse=290979548648830703285534725720587796918255626150557628785683345512559049441280.00000
+Iteration 81: w0=776035668804390658836947263705453690880.00000, w1=832341649800189021732498188851654688768.00000, mse=2572969231252996251284896963237534779044264223591455070621863157514006654091264.00000
+Iteration 82: w0=-2307638343568915312550838407775861604352.00000, w1=-2475071163916402514857348543648188334080.00000, mse=22751326324188509146961656019772499095661281879923023643051829954111662985314304.00000
+Iteration 83: w0=6862048922202014860208986241966020755456.00000, w1=7359931186816243184071927398203907899392.00000, mse=201177240373620364786729227970216193922724317113347331128856826793513583019819008.00000
+Iteration 84: w0=-20405153841337885728554183747108012556288.00000, w1=-21885668527185808389575824383745904869376.00000, mse=1778897698870264418982915717649507503413267290233914529407852322216781660983132160.00000
+Iteration 85: w0=60677256605021953611926392030190322581504.00000, w1=65079750710148908547623744916423192870912.00000, mse=15729796358519241803249112912736978046888009183417527021380088906986155274485628928.00000
+Iteration 86: w0=-180431350713613976291966542397146373554176.00000, w1=-193522713150574094828435633377734970834944.00000, mse=139089782193557214171927236669006749485832775503971717786891989438259497043327188992.00000
+Iteration 87: w0=536535007379431814320424037277263286239232.00000, w1=575463797824890356492338182906794454548480.00000, mse=1229893068524910216309425181431671369776117097016098839832140481521185865462408282112.00000
+Iteration 88: w0=-1595453412087806251855701199253433026084864.00000, w1=-1711213000354029319541744900561577114075136.00000, mse=10875255796293025285295928496194230999169425574770498560340837785070741908995912499200.00000
+Iteration 89: w0=4744278667994713598651003712535234040823808.00000, w1=5088504165941790430329543143454988138708992.00000, mse=96163798025673345738404138366693885055497582427390938104284534213158417744665050611712.00000
+Iteration 90: w0=-14107701239696825391296737384445637071732736.00000, w1=-15131298465737488701811936234413488229842944.00000, mse=850322624491703831331366411981192672048541533448139108085233072488065918743388220293120.00000
+Iteration 91: w0=41950999972071069686670805760857262998421504.00000, w1=44994793320927529114291981318353321010921472.00000, mse=7518926878589209890182192910785831296898199205898777852674795438531594733872808653225984.00000
+Iteration 92: w0=-124746503257714722814426188512112520917417984.00000, w1=-133797600422543194761130508521173045429141504.00000, mse=66485660591902634795055666766229797885092329928934835952822650371861751685666357320351744.00000
+Iteration 93: w0=370949204676580590032388661388534181514969088.00000, w1=397863765061550408529674735174725777913544704.00000, mse=587895471749961696544752334695828512195281708012997560995003178178814853013901715481559040.00000
+Iteration 94: w0=-1103063483598510878170775201472932406062219264.00000, w1=-1183097268180019533078331315254312887765696512.00000, mse=5198430498052447539221801357635157012912247466598805013449631315651389393941683404151980032.00000
+Iteration 95: w0=3280096125045826087020508383840831635399376896.00000, w1=3518086513252807664630488747670772987690221568.00000, mse=45966810328784589339026911796602611803666177101956093127489373582305028142955470413197475840.00000
+Iteration 96: w0=-9753772787801452863977600772209793625673957376.00000, w1=-10461466734490026920215571725562178770231623680.00000, mse=406458767236390762407179613716751529508205356316450557064611935829813463947660987619155640320.00000
+Iteration 97: w0=29004053530512613963247408318721787108066852864.00000, w1=31108469284244979842034019313427171449856065536.00000, mse=3594087305202300763901003531279963428169800230256805679564164627480215162348447341707148656640.00000
+Iteration 98: w0=-86247151692207955587412332563630536384827097088.00000, w1=-92504893029800104724501530693616613812103806976.00000, mse=31780501735133472093173500347123796494660214212198951120927688346242647052865432552506348535808.00000
+Iteration 99: w0=256466606200173426436794775495214249501752557568.00000, w1=275074776462517091059026990066518490072643272704.00000, mse=281017183159375571197311461778383885470349428665723465788910567716191712425222793954238465572864.00000
+Iteration 100: w0=-762635273226968246567423500685033147792715939840.00000, w1=-817968976208946848237177385412072321149126574080.00000, mse=2484877611089682799838510328000979603230359258918849193376657384284373755208576534866792783282176.00000
+---------------------
+Learning rate: 0.001
+Iteration 1: w0=0.01447, w1=0.01502, mse=54.56336
+Iteration 2: w0=0.02888, w1=0.02998, mse=54.13273
+Iteration 3: w0=0.04324, w1=0.04488, mse=53.70551
+Iteration 4: w0=0.05754, w1=0.05972, mse=53.28169
+Iteration 5: w0=0.07178, w1=0.07449, mse=52.86122
+Iteration 6: w0=0.08597, w1=0.08921, mse=52.44409
+Iteration 7: w0=0.10010, w1=0.10387, mse=52.03026
+Iteration 8: w0=0.11418, w1=0.11847, mse=51.61972
+Iteration 9: w0=0.12820, w1=0.13301, mse=51.21243
+Iteration 10: w0=0.14217, w1=0.14750, mse=50.80837
+Iteration 11: w0=0.15609, w1=0.16192, mse=50.40752
+Iteration 12: w0=0.16994, w1=0.17629, mse=50.00984
+Iteration 13: w0=0.18375, w1=0.19060, mse=49.61532
+Iteration 14: w0=0.19750, w1=0.20485, mse=49.22392
+Iteration 15: w0=0.21120, w1=0.21904, mse=48.83563
+Iteration 16: w0=0.22484, w1=0.23318, mse=48.45042
+Iteration 17: w0=0.23843, w1=0.24726, mse=48.06826
+Iteration 18: w0=0.25197, w1=0.26128, mse=47.68913
+Iteration 19: w0=0.26545, w1=0.27525, mse=47.31301
+Iteration 20: w0=0.27888, w1=0.28915, mse=46.93987
+Iteration 21: w0=0.29226, w1=0.30301, mse=46.56969
+Iteration 22: w0=0.30559, w1=0.31681, mse=46.20245
+Iteration 23: w0=0.31887, w1=0.33055, mse=45.83811
+Iteration 24: w0=0.33209, w1=0.34423, mse=45.47667
+Iteration 25: w0=0.34526, w1=0.35786, mse=45.11809
+Iteration 26: w0=0.35838, w1=0.37144, mse=44.76235
+Iteration 27: w0=0.37145, w1=0.38496, mse=44.40944
+Iteration 28: w0=0.38447, w1=0.39843, mse=44.05932
+Iteration 29: w0=0.39743, w1=0.41184, mse=43.71198
+Iteration 30: w0=0.41035, w1=0.42520, mse=43.36740
+Iteration 31: w0=0.42322, w1=0.43850, mse=43.02554
+Iteration 32: w0=0.43603, w1=0.45175, mse=42.68640
+Iteration 33: w0=0.44880, w1=0.46495, mse=42.34994
+Iteration 34: w0=0.46151, w1=0.47809, mse=42.01616
+Iteration 35: w0=0.47418, w1=0.49118, mse=41.68502
+Iteration 36: w0=0.48680, w1=0.50422, mse=41.35650
+Iteration 37: w0=0.49936, w1=0.51721, mse=41.03059
+Iteration 38: w0=0.51188, w1=0.53014, mse=40.70727
+Iteration 39: w0=0.52435, w1=0.54302, mse=40.38651
+Iteration 40: w0=0.53677, w1=0.55585, mse=40.06829
+Iteration 41: w0=0.54915, w1=0.56862, mse=39.75259
+Iteration 42: w0=0.56147, w1=0.58135, mse=39.43940
+Iteration 43: w0=0.57375, w1=0.59402, mse=39.12869
+Iteration 44: w0=0.58598, w1=0.60665, mse=38.82044
+Iteration 45: w0=0.59816, w1=0.61922, mse=38.51464
+Iteration 46: w0=0.61029, w1=0.63174, mse=38.21127
+Iteration 47: w0=0.62238, w1=0.64421, mse=37.91029
+Iteration 48: w0=0.63442, w1=0.65663, mse=37.61171
+Iteration 49: w0=0.64641, w1=0.66900, mse=37.31549
+Iteration 50: w0=0.65835, w1=0.68132, mse=37.02162
+Iteration 51: w0=0.67025, w1=0.69359, mse=36.73008
+Iteration 52: w0=0.68210, w1=0.70580, mse=36.44085
+Iteration 53: w0=0.69391, w1=0.71798, mse=36.15392
+Iteration 54: w0=0.70567, w1=0.73010, mse=35.86926
+Iteration 55: w0=0.71738, w1=0.74217, mse=35.58686
+Iteration 56: w0=0.72905, w1=0.75419, mse=35.30669
+Iteration 57: w0=0.74068, w1=0.76617, mse=35.02875
+Iteration 58: w0=0.75225, w1=0.77809, mse=34.75301
+Iteration 59: w0=0.76379, w1=0.78997, mse=34.47946
+Iteration 60: w0=0.77527, w1=0.80180, mse=34.20807
+Iteration 61: w0=0.78672, w1=0.81358, mse=33.93884
+Iteration 62: w0=0.79812, w1=0.82532, mse=33.67174
+Iteration 63: w0=0.80947, w1=0.83701, mse=33.40676
+Iteration 64: w0=0.82078, w1=0.84865, mse=33.14388
+Iteration 65: w0=0.83205, w1=0.86024, mse=32.88309
+Iteration 66: w0=0.84327, w1=0.87178, mse=32.62436
+Iteration 67: w0=0.85445, w1=0.88328, mse=32.36769
+Iteration 68: w0=0.86558, w1=0.89474, mse=32.11305
+Iteration 69: w0=0.87667, w1=0.90614, mse=31.86042
+Iteration 70: w0=0.88772, w1=0.91750, mse=31.60980
+Iteration 71: w0=0.89873, w1=0.92882, mse=31.36117
+Iteration 72: w0=0.90969, w1=0.94009, mse=31.11451
+Iteration 73: w0=0.92061, w1=0.95131, mse=30.86981
+Iteration 74: w0=0.93149, w1=0.96249, mse=30.62704
+Iteration 75: w0=0.94232, w1=0.97362, mse=30.38620
+Iteration 76: w0=0.95311, w1=0.98470, mse=30.14727
+Iteration 77: w0=0.96387, w1=0.99575, mse=29.91023
+Iteration 78: w0=0.97457, w1=1.00674, mse=29.67507
+Iteration 79: w0=0.98524, w1=1.01770, mse=29.44178
+Iteration 80: w0=0.99587, w1=1.02861, mse=29.21033
+Iteration 81: w0=1.00645, w1=1.03947, mse=28.98072
+Iteration 82: w0=1.01700, w1=1.05029, mse=28.75294
+Iteration 83: w0=1.02750, w1=1.06107, mse=28.52695
+Iteration 84: w0=1.03796, w1=1.07180, mse=28.30276
+Iteration 85: w0=1.04838, w1=1.08249, mse=28.08035
+Iteration 86: w0=1.05876, w1=1.09313, mse=27.85970
+Iteration 87: w0=1.06910, w1=1.10374, mse=27.64079
+Iteration 88: w0=1.07940, w1=1.11430, mse=27.42363
+Iteration 89: w0=1.08966, w1=1.12481, mse=27.20818
+Iteration 90: w0=1.09988, w1=1.13529, mse=26.99445
+Iteration 91: w0=1.11006, w1=1.14572, mse=26.78240
+Iteration 92: w0=1.12020, w1=1.15611, mse=26.57204
+Iteration 93: w0=1.13030, w1=1.16646, mse=26.36335
+Iteration 94: w0=1.14037, w1=1.17676, mse=26.15631
+Iteration 95: w0=1.15039, w1=1.18703, mse=25.95091
+Iteration 96: w0=1.16037, w1=1.19725, mse=25.74714
+Iteration 97: w0=1.17032, w1=1.20743, mse=25.54499
+Iteration 98: w0=1.18022, w1=1.21757, mse=25.34444
+Iteration 99: w0=1.19009, w1=1.22767, mse=25.14548
+Iteration 100: w0=1.19992, w1=1.23773, mse=24.94809
+
+    \end{Verbatim}
+
+    \hypertarget{todo}{%
+\subparagraph{TODO}\label{todo}}
+
+\begin{quote}
+When learning rate is set to 1 the mse increases. When learning rate is
+set to 0.001 the mse decreases, however it decreases slowly. Conclusion:
+Learning rate = 1 is too high, while learning rate = 0.001 is too low.
+\end{quote}
+
+    \hypertarget{exercise-1.3}{%
+\subsection{Exercise 1.3}\label{exercise-1.3}}
+
+Earlier in the document, you learned about the closed-form solution of
+linear regression: \[
+\hat{w} = (X^TX)^{-1}X^Ty
+\] where y is a vector of output values, and X is matrix of input
+vectors. It is important to note that the y-intercept (\(w_0\)) is
+represented by a column of 1's in the X matrix.
+
+This equation is called the Normal equation, and it can work only if the
+columns of the matrix X are linear independent, or in other words, the
+matrix X is invertible.
+
+Once you solve the normal equation, the vector \(\bar{w}\) will contain
+the parameter estimates (\(w_0\) and \(w_1\)) of the line.
+
+Your task is to implement the normal equation, and give it the same
+values of \texttt{X} and \texttt{y} as we have used above, and see what
+the matrix \(\bar{w}\) contains. It should contain the parameter
+estimates of the fit.
+
+How do the parameter estimates obtained by solving the normal equation
+compare to the ones obtained using the gradient descent algorithm?
+
+\hypertarget{hints}{%
+\subparagraph{Hints:}\label{hints}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Add a column of 1's to X to using \texttt{np.hstack}. This column of
+  1's models for the y-intercept (\(w_0\)).
+\item
+  Use \texttt{inv} function in numpy to find the inverse of a matrix.
+  inv is defined in \texttt{numpy.linalg} module so will need to import
+  it from it.
+\item
+  To multiply two matrices \texttt{a} and \texttt{b}, use the following
+  notation in python \texttt{a.dot(b)}
+\item
+  To transpose a matrix \texttt{c} use \texttt{c.T}
+\end{enumerate}
+
+Students who wish to do this in R instead of Python would find
+\href{https://www.statmethods.net/advstats/matrix.html}{this resource}
+useful.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} TODO}
+         \PY{c+c1}{\PYZsh{} Write your solution here}
+         \PY{n}{shape} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{obj\PYZus{}type} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{dtype}
+         \PY{n}{ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{shape}\PY{p}{)}\PY{p}{,} \PY{n}{obj\PYZus{}type}\PY{p}{)}
+         \PY{n}{X\PYZus{}ones} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{ones}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{X\PYZus{}trans} \PY{o}{=} \PY{n}{X\PYZus{}ones}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{X\PYZus{}trans\PYZus{}times\PYZus{}X} \PY{o}{=} \PY{n}{X\PYZus{}trans}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}ones}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{inv}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{X\PYZus{}T\PYZus{}times\PYZus{}X\PYZus{}\PYZus{}inv} \PY{o}{=} \PY{n}{inv}\PY{p}{(}\PY{n}{X\PYZus{}trans\PYZus{}times\PYZus{}X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{w\PYZus{}hat} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}T\PYZus{}times\PYZus{}X\PYZus{}\PYZus{}inv}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}trans}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{w\PYZus{}hat}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} array([[3.02129039],
+                [4.45478709]])
+\end{Verbatim}
+            
+    \begin{quote}
+It seems like the values are more or less the same, so both methods
+obviously work.
+\end{quote}
+
+    \hypertarget{exercise-1.4}{%
+\subsection{Exercise 1.4}\label{exercise-1.4}}
+
+To brush up your calculus skills, derive the partial derivate of MSE
+that has \emph{L2} penalty term included in it. In other words, we want
+you compute the following partial derivatives: \[
+\frac{\partial}{\partial w_0} \left(\dfrac{1}{n} \sum_{i=1}^{n} [y_i - (w_1 x_i + w_0)]^2 + \lambda {w_0}^2\right) 
+\]
+
+\[
+\frac{\partial}{\partial w_1} \left(\dfrac{1}{n} \sum_{i=1}^{n} [y_i - (w_1 x_i + w_0)]^2 + \lambda {w_1}^2\right) 
+\]
+
+\hypertarget{what-to-submit}{%
+\paragraph{What to submit}\label{what-to-submit}}
+
+A derivation of both the gradient equations.
+
+    \hypertarget{linear-regression-with-sklearn-machine-learning-library}{%
+\section{\texorpdfstring{Linear Regression with \emph{sklearn} Machine
+Learning
+Library}{Linear Regression with sklearn Machine Learning Library}}\label{linear-regression-with-sklearn-machine-learning-library}}
+
+In the section above, we implemented our own linear regression with
+gradient descent. However, instead of re-inventing the wheel and writing
+the code for each machine learning algorithm ourselves, we can also
+follow the easier path of using someone else's code to do machine
+learning. That's the path that most people follow. Having said that,
+knowing how a particular algorithm works internally is a very important
+for understanding its nuances.
+
+In this section, we will use a machine learning library called sklearn
+to perform linear regression on the same dataset and see what kind of
+results we get this time round.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} install sklearn if it isn\PYZsq{}t installed already }
+        \PY{c+c1}{\PYZsh{} !pip install sklearn}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} import LinearRegression class from sklearn.linear\PYZus{}model module}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{c+c1}{\PYZsh{} make a lin\PYZus{}reg object form the LinearRegression class}
+         \PY{n}{lin\PYZus{}reg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} use the fit method of LinearRegression class to fit a straight line through the data}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slope w1:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}intercept w0:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+slope w1: [[3.02129039]]
+y-intercept w0: [4.45478709]
+
+    \end{Verbatim}
+
+    You can see that the estimates for \(w_0\) and \(w_1\) are very close to
+the estimates we obtained by using our gradient descent algorithm. Now
+lets plot the original data along with the fitted line.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} plot the original data points as a scatter plot}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot the line that fits these points. Use the values of m and b as provided by the fit method}
+         \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{o}{*}\PY{n}{X} \PY{o}{+} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{intercept\PYZus{}}
+         
+         \PY{c+c1}{\PYZsh{} you can also get y\PYZus{} by using the predict method. Uncomment the line below:}
+         \PY{c+c1}{\PYZsh{}y\PYZus{} = lin\PYZus{}reg.predict(X)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} <matplotlib.legend.Legend at 0x2a4cee5e5f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{exercise-1.5}{%
+\subsection{Exercise 1.5}\label{exercise-1.5}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  How does fit you got from sklearn library compare to the one you got
+  form your implementation of the Normal equation.
+\item
+  Suppose you have a new data point \texttt{x=3}. Use the
+  \texttt{predict} method provided by the \texttt{LinearRegression}
+  class to find its corresponding y value.
+\end{enumerate}
+
+N.B. Student who prefer R can implement linear regression using
+\texttt{lm()} method.
+
+    \hypertarget{todo}{%
+\section{TODO}\label{todo}}
+
+\hypertarget{write-you-solution-below}{%
+\section{write you solution below}\label{write-you-solution-below}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The \emph{fit} method from the \textbf{sklearn library} seems to give
+  more or less the same values for \emph{b} and \emph{m} as ``my''
+  implementation of the \textbf{Normal Equation}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} Answer to 2. }
+         \PY{n}{test\PYZus{}data\PYZus{}point} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{pred\PYZus{}value} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}data\PYZus{}point}\PY{p}{)}\PY{p}{)}
+         \PY{n}{actual\PYZus{}value} \PY{o}{=} \PY{l+m+mi}{4} \PY{o}{+} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{test\PYZus{}data\PYZus{}point}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted value: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pred\PYZus{}value}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Actual value: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{actual\PYZus{}value}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Predicted value: 13.518658256328946
+Actual value: 13
+
+    \end{Verbatim}
+
+    \begin{quote}
+Pretty fair prediction
+\end{quote}
+
+    \hypertarget{multivariate-linear-regression}{%
+\section{2. Multivariate Linear Regression
+}\label{multivariate-linear-regression}}
+
+So far we we were using univariate linear regression. Let us now discuss
+multivariate linear regression. In multivariate regression, the
+dependent variable is modeled as a linear combination of multiple
+independent variables.
+
+To study multivariate regression, we are going to use the Hollywood
+movies dataset. This dataset is in \texttt{movies.csv} file. It has four
+columns and their description is as following:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{revenue} = Total revenue obtained in the first year of box
+  office release in millions
+\item
+  \texttt{production\_cost} = Total cost in million in producing the
+  movie
+\item
+  \texttt{promotional\_cost} = Total cost in millions in promoting the
+  movies\\
+\item
+  \texttt{book\_sales} = Total sales in millions of the movie's book
+\end{itemize}
+
+We will now try to model the revenue as a linear combination of the
+production\_cost, promotional\_cost, and book\_sales using Multivariate
+Linear Regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} make a dataframe of the data}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movies.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show first five rows of df}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}       revenue  production\_cost  promotional\_cost  book\_sales
+         0   85.099998              8.5          5.100000         4.7
+         1  106.300003             12.9          5.800000         8.8
+         2   50.200001              5.2          2.100000        15.1
+         3  130.600006             10.7          8.399999        12.2
+         4   54.799999              3.1          2.900000        10.6
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Extract the first column and set it to the output or dependent varaible y}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Remove the first column and set the rest of the dataframe to X. This is the set of indepedent variables}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show first five rows of X}
+         \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}    production\_cost  promotional\_cost  book\_sales
+         0              8.5          5.100000         4.7
+         1             12.9          5.800000         8.8
+         2              5.2          2.100000        15.1
+         3             10.7          8.399999        12.2
+         4              3.1          2.900000        10.6
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} show first five rows of y}
+         \PY{n}{y}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:}       revenue
+         0   85.099998
+         1  106.300003
+         2   50.200001
+         3  130.600006
+         4   54.799999
+\end{Verbatim}
+            
+    Now we will fit a Multivariate Linear Regression model to it:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{c+c1}{\PYZsh{} make a lin\PYZus{}reg object form the LinearRegression class}
+         \PY{n}{lin\PYZus{}reg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} use the fit method of LinearRegression class to fit a straight line through the data}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Display the learned parameters}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{,} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} (array([7.67602854]), array([[3.66160401, 7.62105126, 0.82846807]]))
+\end{Verbatim}
+            
+    \hypertarget{exercise-2.1}{%
+\subsection{Exercise 2.1}\label{exercise-2.1}}
+
+What would be the first year box office revenue of a movie which costed
+23 million dollars to make, 12 million dollars to promote, and had total
+book sales of 10 million dollars.
+
+N.B: Students you want to attempt this exercise in R can use
+\texttt{lm()} function to do multiple linear regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} TODO}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} Write your code here}
+         \PY{n}{prod\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{23}
+         \PY{n}{prom\PYZus{}c} \PY{o}{=} \PY{l+m+mi}{12}
+         \PY{n}{book\PYZus{}s} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{prod\PYZus{}c}\PY{p}{,} \PY{n}{prom\PYZus{}c}\PY{p}{,} \PY{n}{book\PYZus{}s}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} array([[191.6302165]])
+\end{Verbatim}
+            
+    \hypertarget{multivariate-regression-with-polynomial-basis}{%
+\section{Multivariate Regression with Polynomial
+basis}\label{multivariate-regression-with-polynomial-basis}}
+
+What if your data is actually more complex than a simple straight line,
+or a plane? Surprisingly, you can actually use a linear model to fit
+nonlinear data as well. A simple way to do this is to add powers of each
+feature as new features, and then train a linear model on this extended
+set of features. This technique is called Polynomial Regression. Because
+we are modeling the response variable as linear combination of the
+polynomial features, therefore this regression is classed as
+multivariate regression.
+
+Lets look at an example. First, lets generate some nonlinear data, based
+on a simple quadratic equation (plus some noise). \[
+y = 0.5X^2 + X + 2 + noise
+\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} define the number of points to generate as k}
+         \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{100}
+         
+         \PY{c+c1}{\PYZsh{} define a seed value. It is important to define the seed value}
+         \PY{c+c1}{\PYZsh{} so that the random numbers generated are the same every time}
+         \PY{c+c1}{\PYZsh{} this code is executed.}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate k x\PYZhy{}axis values from \PYZhy{}3 to +3}
+         \PY{n}{X} \PY{o}{=} \PY{l+m+mi}{6} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}
+         
+         \PY{c+c1}{\PYZsh{} sort the numbers in ascending order. This helps when we are plotting the data. }
+         \PY{c+c1}{\PYZsh{} Without this line, your plots will be all jumbled up}
+         \PY{n}{X}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate k y\PYZhy{}axis values}
+         \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{X}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{X} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let us now plot the data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} Text(0,0.5,'y')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Clearly, a straight line will never fit this data properly. So lets use
+Scikit-Learn's \texttt{PolynomialFeatures} class to transform our
+training data by adding the square of X in the training set as new
+feature.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+         
+         \PY{n}{poly\PYZus{}features} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{include\PYZus{}bias}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate polyonimal features upto degree 2 from the vector X}
+         \PY{n}{X\PYZus{}poly} \PY{o}{=} \PY{n}{poly\PYZus{}features}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} display 4 original data points }
+         \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} array([[-2.8754883 ],
+                [-2.84760131],
+                [-2.7643094 ],
+                [-2.76024475]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} Display the transformed data.}
+         \PY{c+c1}{\PYZsh{} You will now see the original X data alongside its corresponding 2nd\PYZhy{}degree polynomial feature}
+         \PY{n}{X\PYZus{}poly}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} array([[-2.87548830e+00,  8.26843299e+00, -2.37757823e+01,
+                  6.83669840e+01, -1.96588463e+02,  5.65287826e+02,
+                 -1.62547853e+03,  4.67404451e+03, -1.34401603e+04,
+                  3.86470238e+04, -1.11129065e+05,  3.19550326e+05,
+                 -9.18863225e+05,  2.64218046e+06, -7.59755900e+06],
+                [-2.84760131e+00,  8.10883321e+00, -2.30907240e+01,
+                  6.57531760e+01, -1.87238830e+02,  5.33181537e+02,
+                 -1.51828844e+03,  4.32348015e+03, -1.23115477e+04,
+                  3.50583794e+04, -9.98322871e+04,  2.84282551e+05,
+                 -8.09523365e+05,  2.30519979e+06, -6.56428994e+06],
+                [-2.76430940e+00,  7.64140644e+00, -2.11232116e+01,
+                  5.83910924e+01, -1.61411045e+02,  4.46190069e+02,
+                 -1.23340740e+03,  3.40951967e+03, -9.42496726e+03,
+                  2.60535256e+04, -7.20200055e+04,  1.99085578e+05,
+                 -5.50334134e+05,  1.52129382e+06, -4.20532680e+06],
+                [-2.76024475e+00,  7.61895107e+00, -2.10301697e+01,
+                  5.80484154e+01, -1.60227834e+02,  4.42268036e+02,
+                 -1.22076802e+03,  3.36961853e+03, -9.30097184e+03,
+                  2.56729587e+04, -7.08636494e+04,  1.95601016e+05,
+                 -5.39906677e+05,  1.49027457e+06, -4.11352255e+06]])
+\end{Verbatim}
+            
+    Now we fit a linear regression model to the transformed data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{lin\PYZus{}reg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Now we fit a linear model to the X\PYZus{}poly (the transformed features set) and y}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}poly}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show the values of intercept and learned co\PYZhy{}efficients}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{,} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} (array([2.43771889]),
+          array([[ 4.70240062e-01,  9.81483416e-01,  1.45901724e+00,
+                  -5.43920910e-01, -1.30913386e+00,  2.30186856e-01,
+                   5.62777734e-01, -4.49943278e-02, -1.28760085e-01,
+                   3.53201168e-03,  1.58848833e-02,  1.15315775e-05,
+                  -9.84782281e-04, -1.01041607e-05,  2.36325364e-05]]))
+\end{Verbatim}
+            
+    So the fit estimated by polynomial regression has the following form:
+
+\[
+\bar{y} = 0.49X^2 + 0.99X + 2.48
+\]
+
+which is pretty close the function we used to generate the original the
+original data: \[
+y = 0.5X^2 + X + 2 + noise
+\]
+
+(N.B.: The values that you might get for \texttt{lin\_reg.intercept\_}
+and \texttt{lin\_reg.coef\_} may be a bit different. This is because you
+might be using a different computer with a different operating system,
+different precision etc. All this might lead a slightly different values
+of intercept and co-efficients.)
+
+Let's now plot the original data (in blue) and the predicted fit (in
+red):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}poly}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} Text(0,0.5,'y')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{try-it-yourself}{%
+\subparagraph{Try it yourself}\label{try-it-yourself}}
+
+Change the value of polynomial degree, and see what happens to the
+fitted line.
+
+Try values of 5, 10, and 15. You don't need to submit anything for this
+one.
+
+    \hypertarget{regularization-with-ridge-penalty}{%
+\subsubsection{Regularization with Ridge
+Penalty}\label{regularization-with-ridge-penalty}}
+
+As you might have noticed from the above task, as the degree of
+polynomial increases, the model starts to overfit. Model overfitting
+often happens when you have: - lots of features, and - too little data
+per feature.
+
+The model starts memorizing the data, rather than generalizing.
+
+To prevent model from overfitting, we can do regularization. In
+regularization, we add a penalty term to the loss function. This penalty
+term prevents the model from overfitting.
+
+Here, we will write the code for Ridge regression.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+         
+         \PY{c+c1}{\PYZsh{} define the number of points to generate}
+         \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate k x\PYZhy{}axis values from \PYZhy{}3 to +3}
+         \PY{n}{X} \PY{o}{=} \PY{l+m+mi}{6} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}
+         \PY{n}{X}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} generate k y\PYZhy{}axis values}
+         \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{X}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{X} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create polynomial feature (degree 15)}
+         \PY{n}{poly\PYZus{}features} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{include\PYZus{}bias}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{X\PYZus{}poly} \PY{o}{=} \PY{n}{poly\PYZus{}features}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create Ridge regression object from Ridge class}
+         \PY{n}{ridge\PYZus{}reg} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{5e\PYZhy{}2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Fit data using Ridge regression}
+         \PY{n}{ridge\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}poly}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create Linear regression object from LinearRegress class (this is just for comparison)}
+         \PY{n}{lin\PYZus{}reg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Fit data using Linear regression}
+         \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}poly}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}predict\PYZus{}ridge} \PY{o}{=} \PY{n}{ridge\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}poly}\PY{p}{)}
+         \PY{n}{y\PYZus{}predict\PYZus{}linear} \PY{o}{=} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}poly}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}predict\PYZus{}linear}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear regression fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}predict\PYZus{}ridge}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge regression fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Sindr\textbackslash{}Anaconda3\textbackslash{}envs\textbackslash{}dat158\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}linear\_model\textbackslash{}ridge.py:112: LinAlgWarning: scipy.linalg.solve
+Ill-conditioned matrix detected. Result is not guaranteed to be accurate.
+Reciprocal condition number9.211480e-17
+  overwrite\_a=True).T
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} <matplotlib.legend.Legend at 0x2a4d186b828>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As you can see in the plot above, linear regression leads to overfitting
+(jiggly blue fit in the plot above).
+
+Ridge regression with \texttt{alpha=5} yields a fit that isn't
+overfitted (smooth red curve).
+
+    \hypertarget{exercise-2.2}{%
+\subsection{Exercise 2.2}\label{exercise-2.2}}
+
+Change the value of regularization parameter to 0.05 and see what
+happens. Explain what you observe?
+
+N.B. Students who wish to do this exercise in R can use the
+\texttt{lm.ridge()} function.
+
+    \hypertarget{todo}{%
+\subparagraph{TODO}\label{todo}}
+
+\begin{quote}
+Observing that when changing(/decreasing) the \textbf{regularization
+parameter} the model starts overfitting
+\end{quote}
+
+    \hypertarget{linear-regression-with-radial-basis-functions}{%
+\section{Linear Regression with Radial Basis
+Functions}\label{linear-regression-with-radial-basis-functions}}
+
+In the lecture, you learned about the radial basis functions (RBF). A
+radial basis function is a real-valued function whose value depends only
+on the distance from some point \texttt{c} called a center. We can use
+each point of our data as center of an RBF and then use a weighted sums
+of these radial basis functions to approximate the fit for the original
+data. In this case multivariate linear regression can be used to find
+the weights (or coefficients) of this weighted sum of \texttt{m} radial
+basis functions, where \texttt{m} are the number of data points in the
+dataset for which we want to find a fit.
+
+Here you will see an implementation of multivariate linear regression
+with radial basis functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} Set random seed}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{m} \PY{o}{=} \PY{l+m+mi}{100}
+         
+         \PY{c+c1}{\PYZsh{} Create random set of m x values between \PYZhy{}6 and +6}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{12} \PY{o}{\PYZhy{}} \PY{l+m+mi}{6}
+         \PY{n}{X}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{axis} \PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Create a non\PYZhy{}linear dataset with random noise}
+         \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{X}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{*}\PY{n}{X}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{3}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{} plot it}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <matplotlib.collections.PathCollection at 0x2a4d18ccf28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}\PY{n+nn}{.}\PY{n+nn}{pairwise} \PY{k}{import} \PY{n}{rbf\PYZus{}kernel} 
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{c+c1}{\PYZsh{} find the transformation of X using Radial Basis Functions }
+         \PY{c+c1}{\PYZsh{} Each point in X is now modeled as vector of 100 values. }
+         \PY{c+c1}{\PYZsh{} See the X\PYZus{}RBF.shape and X\PYZus{}RBF to find how rbf\PYZus{}kernel transformed }
+         \PY{c+c1}{\PYZsh{} the original datapoints}
+         \PY{n}{X\PYZus{}RBF} \PY{o}{=} \PY{n}{rbf\PYZus{}kernel}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{} Fit a linear regression model to the RBF\PYZhy{}transformed data}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}RBF}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} find the predicted values}
+         \PY{n}{y\PYZus{}}\PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}RBF}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot original data and predicted fit}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fit for RBF\PYZhy{}transformed data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} <matplotlib.legend.Legend at 0x2a4d1942048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{exercise-2.3}{%
+\subsection{Exercise 2.3}\label{exercise-2.3}}
+
+Plot the first 0th, 99th, and 49th radial basis of X on the same plot as
+a line graph.
+
+\hypertarget{hint}{%
+\subparagraph{HINT:}\label{hint}}
+
+X\_RBF contains 100 radial basis functions, corresponding to each of the
+100 data points. All you need to do is to index them, and then plot
+them.
+
+N.B.: Students who wish to do this exercise in R should refer to this
+\href{http://www.di.fc.ul.pt/~jpn/r/rbf/rbf.html}{resource for RBF}.
+
+Paste your code in the cell below:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{} TODO}
+         \PY{c+c1}{\PYZsh{} Paste your solution here}
+         \PY{n}{X\PYZus{}RBF\PYZus{}0th} \PY{o}{=} \PY{n}{X\PYZus{}RBF}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X\PYZus{}RBF\PYZus{}49th} \PY{o}{=} \PY{n}{X\PYZus{}RBF}\PY{p}{[}\PY{l+m+mi}{49}\PY{p}{]}
+         \PY{n}{X\PYZus{}RBF\PYZus{}99th} \PY{o}{=} \PY{n}{X\PYZus{}RBF}\PY{p}{[}\PY{l+m+mi}{99}\PY{p}{]}
+         \PY{n}{ans} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}RBF\PYZus{}0th}\PY{p}{,} \PY{n}{X\PYZus{}RBF\PYZus{}49th}\PY{p}{,} \PY{n}{X\PYZus{}RBF\PYZus{}99th}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{ans}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{logistic-regression}{%
+\section{3. Logistic Regression }\label{logistic-regression}}
+
+    Logistic Regression (also called Logit Regression) is a generalized
+linear model which is commonly used to estimate the probability that an
+instance belongs to a particular class (e.g., what is the probability
+that this email is spam?). If the estimated probability is greater than
+0.5, then the model predicts that the instance belongs to that class
+(called the positive class, labeled ``1''), or else it predicts that it
+does not (i.e., it belongs to the negative class, labeled ``0''). This
+makes it a binary classifier.
+
+Let's use the iris dataset to illustrate Logistic Regression. This is a
+famous dataset that contains the sepal and petal length and width of 150
+iris flowers of three different species: Iris-Setosa, Iris-Versicolor,
+and Iris-Virginica.
+\includegraphics{https://cdn-images-1.medium.com/max/720/1*7bnLKsChXq94QjtAiRn40w.png}
+\includegraphics{http://www.robosoup.com/wp-content/uploads/2016/02/iris_petal_sepal-278x300.png}
+
+Iris data is already present in the sklearn library, and is essentially
+the same as the one you used during your first weekly exercise. All we
+need to do is to import it.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+        \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} iris is a dictionary of key\PYZhy{}value pairs. Each key\PYZhy{}value pairs contains some information about the dataset.}
+        \PY{c+c1}{\PYZsh{} Lets display a list of these keys and see what they hold}
+        \PY{n+nb}{list}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} ['data', 'target', 'target\_names', 'DESCR', 'feature\_names']
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  \texttt{data}: holds the data of sepal and petal lengths and widths in
+  four columns,
+\item
+  \texttt{target}: holds the class of each flower. These class are
+  encoded as 0, 1, and 2,
+\item
+  \texttt{target\_names}: holds the names of each of the flower classes,
+\item
+  \texttt{DESCR}: contains a detailed description of the dataset, and
+\item
+  \texttt{feature\_names}: contains a list of name of the columns of
+  data
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} let us get the petal width. It is present in the 4th column of data}
+        \PY{n}{X} \PY{o}{=} \PY{n}{iris}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]} 
+        \PY{n}{X}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} lets define a binaray variable that encodes whether a flower is Iris\PYZhy{}Virginca or not}
+        \PY{c+c1}{\PYZsh{} Iris\PYZus{}virginca flower is encoded as a 2 in target  }
+        \PY{n}{y} \PY{o}{=} \PY{p}{(}\PY{n}{iris}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)} \PY{c+c1}{\PYZsh{} 1 if Iris\PYZhy{}Virginica, else 0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Petal width (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iris\PYZhy{}Virginica(1) }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Not Iris\PYZhy{}Virginica(0)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Text(0,0.5,'Iris-Virginica(1) \textbackslash{}n Not Iris-Virginica(0)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Let us first try the naive thing of fitting a linear model to this data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        
+        \PY{n}{lin\PYZus{}reg} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{lin\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fit from linear regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.legend.Legend at 0x1cc59d0f518>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A linear regression model cannot be an optimal fit for such dichotomous
+data. Lets try now to fit a logistic regression model to this data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{n}{log\PYZus{}reg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{log\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                  intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                  penalty='l2', random\_state=None, solver='liblinear', tol=0.0001,
+                  verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    Let's now look at the model's estimated probabilities for flowers with
+petal widths varying from 0 to 3 cm
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} we generate X\PYZus{}new which is vector of closely spaced points form 0 to 3}
+         \PY{c+c1}{\PYZsh{} This vector will help us plot the model}
+         \PY{n}{X\PYZus{}new} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} make a vector of prediction probablity values for all datapoints in X\PYZus{}new}
+         \PY{n}{y\PYZus{}proba} \PY{o}{=} \PY{n}{log\PYZus{}reg}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}new}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}new}\PY{p}{,} \PY{n}{y\PYZus{}proba}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iris\PYZhy{}Virginica Prob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}new}\PY{p}{,} \PY{n}{y\PYZus{}proba}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Not Iris\PYZhy{}Virginica Prob}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Petal width (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <matplotlib.legend.Legend at 0x1cc59d90f28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The petal width of Iris-Virginica flowers ranges from 1.4 cm to 2.5 cm,
+while the other iris flowers generally have a smaller petal width,
+ranging from 0.1 cm to 1.8 cm.
+
+Notice that there is a bit of overlap. Above about 2 cm the classifier
+is highly confident that the flower is an Iris-Virginica (it outputs a
+high probability to that class), while below 1 cm it is highly confident
+that it is not an Iris-Virginica (high probability for the ``Not
+Iris-Virginica'' class). In between these extremes, the classifier is
+unsure. However, if you ask it to predict the class (using the
+\texttt{predict()} method rather than the \texttt{predict\_proba()}
+method), it will return whichever class is the most likely. Therefore,
+there is a decision boundary at around 1.6 cm where both probabilities
+are equal to 0.5 (or 50\%): if the petal width is higher than 1.6 cm,
+the classifier will predict that the flower is an Iris-Virginica, or
+else it will predict that it is not (even if it is not very confident).
+
+Let's try to predict the class of a flower that has a petal width of
+1.7.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{log\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.7}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} array([1])
+\end{Verbatim}
+            
+    So the class predicted is 1 or Iris-Virginica. Let us find out how sure
+the classifier was while making this decision.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{log\PYZus{}reg}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.7}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} array([[0.43834057, 0.56165943]])
+\end{Verbatim}
+            
+    So the classifier was about 56\% sure that the flower is Iris-Virginica.
+
+    \hypertarget{exercise-3.1}{%
+\subsection{Exercise 3.1}\label{exercise-3.1}}
+
+In the example above, we discussed a two class classification problem
+i.e, we built a logistic regression classifier that was able to
+distinguish between Iris-Virginica and non-Iris-Virginica flowers based
+on just a single feature: the petal width.
+
+Your task now is build a multi-class classifier that can distinguish
+between Iris-Virginca, Iris-Setosa, and Iris-Versicolor. Furthermore,
+instead of using one feature, now you have to use two features --- petal
+length and petal width --- to train your model.
+
+Using the model that you trained, predict the most probable class for a
+flower that has petal length and width of 1 and 0.1 cm, respectively.
+What is probability value of this most probable class.
+
+For those who prefer to work in R, you can use the \texttt{glm()}
+function to perform logistic regression. More on it
+\href{https://www.datacamp.com/community/tutorials/logistic-regression-R}{here}.
+
+\hypertarget{hint}{%
+\subparagraph{Hint:}\label{hint}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make an object from LogisticRegression class in sklearn as following:
+\end{enumerate}
+
+\texttt{multiclass\_logreg\_obj\ =\ LogisticRegression(multi\_class="multinomial",solver="lbfgs",\ C=10)}.
+
+\texttt{multiclass\_logreg\_obj} is just a name. It could be any
+(appropriate) name you like.
+
+Read more about the Logistic Regression parameters in the
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html}{online
+documentation}. Understanding C, solver, and multi\_class is important
+for this assignment.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{multiclass\PYZus{}logreg\PYZus{}obj} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{multi\PYZus{}class}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{multinomial}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lbfgs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} let us get the petal width. It is present in the 4th column of data}
+         \PY{n}{X} \PY{o}{=} \PY{n}{iris}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]} 
+         \PY{n}{y} \PY{o}{=} \PY{n}{iris}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(150, 2)
+(150,)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{n}{iris}\PY{o}{.}\PY{n}{feature\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{feature\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+   petal length (cm)  petal width (cm)
+0                1.4               0.1
+1                1.4               0.1
+2                1.3               0.1
+3                1.5               0.1
+4                1.4               0.1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{multiclass\PYZus{}logreg\PYZus{}obj}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} LogisticRegression(C=10, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='multinomial',
+                   n\_jobs=1, penalty='l2', random\_state=None, solver='lbfgs',
+                   tol=0.0001, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{X\PYZus{}new} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}\PY{p}{,} \PY{n}{ndmin}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{prediction} \PY{o}{=} \PY{n}{multiclass\PYZus{}logreg\PYZus{}obj}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}new}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{prediction}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Prediction [0]
+
+    \end{Verbatim}
+
+    \hypertarget{sources}{%
+\subsubsection{Sources}\label{sources}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  https://github.com/mattnedrich/GradientDescentExample/blob/master/gradient\_descent\_example.py
+\item
+  Hands-On Machine Learning with Scikit-Learn and TensorFlow by Aurélien
+  Géron
+\end{enumerate}
+
+For further details on linear regression, we recommend watching the
+Linear Regression lectures in the Machine Learning Course by Andrew Ng
+on Coursera.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
