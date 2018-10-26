@@ -1,6 +1,36 @@
-## Models
+# MNIST, using 4 classifiers: Random Forest, XGBoost, Neural Network, and Convolutional Neural Network
+Using Sklearn, TensorFlow w. Keras, and Python 3.  
 
-Before initializing of each classifier/model, there is a commented-out line where one can load the pre-trained models from */models/* to save time. 
+# Building
+
+## Prerequisites (To run the NoteBook)
+1. Python 3
+2. Keras
+3. TensorFlow
+4. Numpy
+5. Matplot
+6. pandas
+7. Sklearn
+
+## Instructions
+1. Clone the repository
+2. Run the Jupyter Notebook: '/nbs/MNIST_Classification_Keras.ipynb'
+
+## Prerequisites (To see results, and potentially load models)
+1. Python 3
+2. Numpy
+3. Keras
+4. TensorFlow
+
+## Instructions
+1. Clone the repository
+2. Navigate to 'Main.py'
+3. Run it
+
+### To load the models
+```model = keras.models.load_model(model_path)```
+Example: ```cnn_model = keras.models.load_model('models/MNIST_cnn_optim.hdf5)```
+
 
 ### NOTE: 
 .csv files too big for GitHub
