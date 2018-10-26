@@ -28,9 +28,12 @@ Using Sklearn, TensorFlow w. Keras, and Python 3.
 3. Run it
 
 ### To load the models
+- Neural Networks: <br>
 ```model = keras.models.load_model(model_path)```
 Example: ```cnn_model = keras.models.load_model('models/MNIST_cnn_optim.hdf5)```
-
+- Random Forest & XGBoost
+```model = pickle.load(open(full_path, "rb"))```
+Example: ```loaded_model_rf = pickle.load(open("../models/MNIST_RF.pickle.dat", "rb"))```
 
 ### NOTE: 
 .csv files too big for GitHub
